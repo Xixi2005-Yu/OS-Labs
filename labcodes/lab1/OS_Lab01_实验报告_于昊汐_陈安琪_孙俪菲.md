@@ -61,13 +61,13 @@
 
 在Ubuntu 虚拟机中执行命令，搭建 RISC-V 架构的交叉编译、模拟与调试环境，确保工具链可用，我们在 Lab0 中小组三个人就都已经把环境配置好，在这里不多阐述，这是这次实验所需要的主要工具，均已安装完成：
 
-![image-20251006214544163](C:\Users\京东\AppData\Roaming\Typora\typora-user-images\image-20251006214544163.png)
+![image-20251006214544163](./image/图片 1.png)
 
 #### 3.1.2 获取实验代码，查看代码结构
 
 我们从网站上下载这次实验所需要的代码，通过 tree 命令查看代码结构，确保核心文件存在：
 
-![image-20251006214652938](C:\Users\京东\AppData\Roaming\Typora\typora-user-images\image-20251006214652938.png)
+![image-20251006214652938](./image/图片 2.png)
 
 ### 3.2 练习一：内核启动指令分析
 
@@ -208,13 +208,13 @@ SECTIONS
 
 在代码根目录下，执行编译命令make，执行ls bin/命令，显示如下：
 
-![image-20251006220049796](C:\Users\京东\AppData\Roaming\Typora\typora-user-images\image-20251006220049796.png)
+![image-20251006220049796](./image/图片 3.png)
 
 说明Makefile成功完成了编译→链接→转换的流程，生成了内核可执行文件（kernel）和 QEMU 可加载的镜像（ucore.img）。
 
 接下来在同一根目录下，执行运行命令：make qemu，显示如下：
 
-![image-20251006220111830](C:\Users\京东\AppData\Roaming\Typora\typora-user-images\image-20251006220111830.png)
+![image-20251006220111830](./image/图片 4.png)
 
 可以看到：成功输出(THU.CST) os is loading ...，与init.c中cprintf函数的内容完全一致。
 
@@ -230,13 +230,13 @@ SECTIONS
 
 首先，在终端执行 tmux 命令，进入 tmux 会话，然后按 Ctrl+B ， 再按 %，将屏幕垂直分成左右两窗。
 
-![](file:///C:\Users\京东\AppData\Local\Temp\ksohtml16784\wps1.jpg)
+![](./image/图片 5.png)
 
 然后我们在左窗口输入命令make debug，让 QEMU 启动并等待 GDB 连接。在右窗口输入make gdb，启动 RISC-V 架构的 GDB，GDB 会自动加载内核并连接 QEMU。
 
 接下来，我们在右窗口中依次执行对应指令，结果及分析如下所示
 
-![img](file:///C:\Users\京东\AppData\Local\Temp\ksohtml16784\wps2.jpg)
+![img](./image/图片 6.png)
 
 首先输入i r pc查看此时的pc值，可以看到输出为pc = 0x1000（其实在make gdb指令的结果中也有0x0000000000001000 in ?? ()），表明CPU的初始PC指向0x1000；
 
@@ -244,13 +244,13 @@ SECTIONS
 
 然后我们在GDB中输入b *0x80200000，在地址0x80200000处再设置断点，输入c继续运行到断点处，结果如下
 
-![img](file:///C:\Users\京东\AppData\Local\Temp\ksohtml16784\wps3.jpg)
+![img](./image/图片 7.png)
 
 可以看到左边出现了OpenSBI（固件）在 QEMU virt 平台启动时的启动信息输出，如“OpenSBI v0.4 (Jul 2 2019 11:53:53)”表明OpenSBI 的发布版本（v0.4）与其编译/链接的时间戳；“Current Hart : 0 ”表明当前打印信息是针对 hart 0；“Firmware Base : 0x80000000”表明OpenSBI 固件被加载到物理地址 0x80000000，这与前面调试设断点的位置是一致的；以及平台信息，PMP（物理内存保护）的信息等等。
 
 然后，我们输入i r并执行
 
-![img](file:///C:\Users\京东\AppData\Local\Temp\ksohtml16784\wps4.jpg)
+![img](./image/图片 8.png)
 
 可以看到当前所有寄存器的状态取值，其中一些关键寄存器的值分析如下：
 
@@ -268,13 +268,13 @@ pc = 0x80200000，指向内核入口kern_entry。
 
 再输入si进行单步调试
 
-![img](file:///C:\Users\京东\AppData\Local\Temp\ksohtml16784\wps5.jpg)
+![img](./image/图片 9.png)
 
 可以看到la sp, bootstacktop代码执行后sp的值得到了更新，变为了0x80203000,即为内核专用的栈顶的地址，这与前面的分析是一致的。
 
 然后我们再输入c继续运行
 
-![img](file:///C:\Users\京东\AppData\Local\Temp\ksohtml16784\wps6.jpg)
+![img](./image/图片 10.png)
 
 可以看到左边输出一行(THU.CST) os is loading..., 然后进入死循环,启动成功！
 
