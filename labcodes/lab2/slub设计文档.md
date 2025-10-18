@@ -303,61 +303,61 @@ cputs("=== SLUB Full Feature Test Completed ===\n");
 
 首先要在kern/init/init文件中加上关于检测函数check_slub()的调用。
 
-![添加检测函数](media/image1.png)
+![添加检测函数](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/SLUB%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%9B%BE%E7%89%87%201.png?raw=true)
 
-![编译运行](media/image2.png)
+![编译运行](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/SLUB%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%9B%BE%E7%89%87%202.png?raw=true)
 
 我们使用make指令进行编译并运行make qemu指令启动qemu
 
-![QEMU启动](media/image3.png)
+![QEMU启动](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/SLUB%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%9B%BE%E7%89%87%203.png?raw=true)
 
 可以看到，我们的程序编译成功，而且qemu也成功启动了，下面来分析测试的结果。
 
 #### 4.2.1 基础分配测试
 
-![基础分配测试1](media/image4.png)
+![基础分配测试1](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/SLUB%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%9B%BE%E7%89%87%204.png?raw=true)
 
-![基础分配测试2](media/image5.png)
+![基础分配测试2](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/SLUB%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%9B%BE%E7%89%87%205.png?raw=true)
 
 我们可以看到成功分配了50个对象，每种对象大小（32B / 64B / 128B）都分配成功，每次分配都有打印地址，说明kmem_cache_alloc返回有效地址，基础分配功能正常，测试1通过。
 
 #### 4.2.2 对齐检查
 
-![对齐检查](media/image6.png)
+![对齐检查](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/SLUB%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%9B%BE%E7%89%87%206.png?raw=true)
 
 如图所示，我们对对32B/64B/128B对象做了8字节对齐检查，没有任何Alignment error打印，说明所有对象地址满足8字节对齐，说明对象对齐满足要求，内存对齐功能正确，测试2通过。
 
 #### 4.2.3 对象完整性测试
 
-![对象完整性测试](media/image7.png)
+![对象完整性测试](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/SLUB%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%9B%BE%E7%89%87%207.png?raw=true)
 
 我们使用memset和逐字节检查填充模式（0xAA / 0xBB / 0xCC），可以看到没有出现Integrity error，说明写入和读取对象内存正确，对象数据完整性验证通过。
 
 #### 4.2.4 释放奇数对象
 
-![释放奇数对象1](media/image8.png)
+![释放奇数对象1](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/SLUB%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%9B%BE%E7%89%87%208.png?raw=true)
 
-![释放奇数对象2](media/image9.png)
+![释放奇数对象2](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/SLUB%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%9B%BE%E7%89%87%209.png?raw=true)
 
 我们按奇数索引释放对象（1,3,5,...49），可以看到每次释放都有打印地址，说明kmem_cache_free正常执行，内存释放功能正常，测试4通过。
 
 #### 4.2.5 再分配测试
 
-![再分配测试1](media/image10.png)
+![再分配测试1](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/SLUB%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%9B%BE%E7%89%87%2010.png?raw=true)
 
-![再分配测试2](media/image11.png)
+![再分配测试2](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/SLUB%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%9B%BE%E7%89%87%2011.png?raw=true)
 
 我们对之前释放的对象进行重新分配，来测试缓存复用，可以看到输出显示重新分配地址，有些地址与Step 4释放的地址一致，说明slab空闲对象被正确复用，空闲对象复用功能正常，测试5通过。
 
 #### 4.2.6 边界条件测试
 
-![边界条件测试](media/image12.png)
+![边界条件测试](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/SLUB%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%9B%BE%E7%89%87%2012.png?raw=true)
 
 我们尝试释放未分配对象，已分配对象、重复释放对象，可以看到触发了warning，边界条件和错误处理功能正常，测试6通过。
 
 #### 4.2.7 大量对象分配能力测试
 
-![大量对象分配能力测试](media/image13.png)
+![大量对象分配能力测试](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/SLUB%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%9B%BE%E7%89%87%2013.png?raw=true)
 
 我们尝试大规模分配（200个32B对象）以覆盖多slab，可以看到输出未显示分配失败或崩溃，说明kmem_cache_alloc成功分配多slab，大量对象分配能力测试。
 

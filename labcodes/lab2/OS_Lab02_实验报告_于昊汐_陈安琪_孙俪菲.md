@@ -24,6 +24,10 @@
 
 实验代码从网站上下载。
 
+![1760756776346](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/Lab2%20%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/%E6%80%BB_%E5%9B%BE%E7%89%87%201.png?raw=true)
+
+![1760756793614](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/Lab2%20%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/%E6%80%BB_%E5%9B%BE%E7%89%87%202.png?raw=true)
+
 ## 练习一
 
 ### 理解first-fit连续物理内存分配算法（思考题）
@@ -367,7 +371,11 @@ best_fit_alloc_pages(size_t n) {
 
 首先我们执行make和make qemu命令，编译代码并运行内核：
 
-![编译运行结果](此处应有图片)
+![1760756959642](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/Lab2%20%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/%E6%80%BB_%E5%9B%BE%E7%89%87%203.png?raw=true)
+
+![1760756974001](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/Lab2%20%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/%E6%80%BB_%E5%9B%BE%E7%89%87%204.png?raw=true)
+
+![1760756967040](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/Lab2%20%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/%E6%80%BB_%E5%9B%BE%E7%89%87%205.png?raw=true)
 
 从输出结果来看，Best-Fit算法实现是成功的，关键观察如下：
 
@@ -379,7 +387,7 @@ best_fit_alloc_pages(size_t n) {
 
 另外实验还提供了一个自动评分脚本，我们也来执行一下：
 
-![自动评分结果](此处应有图片)
+![1760757066733](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/Lab2%20%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/%E6%80%BB_%E5%9B%BE%E7%89%87%206.png?raw=true)
 
 同样通过测试。
 

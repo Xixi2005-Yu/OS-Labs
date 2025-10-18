@@ -674,51 +674,51 @@ cprintf("Test 8 Passed (small alloc + merge) | Score: %d/%d\n", score, sum_score
 
 #### 6.2.1 测试1：单页分配验证
 
-![测试1结果](media/image1.png)
+![测试1结果](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/Buddy%20System%20%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%9B%BE%E7%89%87%201.png?raw=true)
 
 **结果分析：** 成功分配1页（order=0）,空闲页总数从初始的31929页减少至31928页,与预期一致,验证了最小粒度单页分配逻辑的正确性,说明系统能正确处理最基础的内存分配请求。
 
 #### 6.2.2 测试2：非2的幂次分配验证
 
-![测试2结果](media/image2.png)
+![测试2结果](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/Buddy%20System%20%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%9B%BE%E7%89%87%202.png?raw=true)
 
 **结果分析：** 当请求分配3页内存时,系统自动向上取整为最近的2的幂次（4页,order=2）并完成分配,验证了非2的幂次分配时的取整与拆分逻辑,表明系统能合理管理不同大小的内存分配请求,避免内存浪费。
 
 #### 6.2.3 测试3：多轮分配-释放-合并验证
 
-![测试3结果](media/image3.png)
+![测试3结果](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/Buddy%20System%20%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%9B%BE%E7%89%87%203.png?raw=true)
 
 **结果分析：** 经过多次分配（8页、2页等）与释放操作后,释放8页块时,系统成功将其合并为order=4（16页）的块,说明在多轮内存操作后,系统能正确合并伙伴块,恢复大块空闲内存,验证了合并逻辑的连续性和有效性。
 
 #### 6.2.4 测试4：边界块合并验证
 
-![测试4结果](media/image4.png)
+![测试4结果](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/Buddy%20System%20%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%9B%BE%E7%89%87%204.png?raw=true)
 
 **结果分析：** 分配并释放order=12（4096页）的块后,其伙伴块存在且处于空闲状态,系统成功将其合并为order=12级块（因无更高阶的合并条件）,验证了地址边界附近块的合并正确性,说明系统在内存地址计算和合并逻辑上处理得当。
 
 #### 6.2.5 测试5：最大块分配验证
 
-![测试5结果](media/image5.png)
+![测试5结果](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/Buddy%20System%20%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%9B%BE%E7%89%87%205.png?raw=true)
 
 **结果分析：** 成功分配系统最大可用块（order=14,16384页）,空闲页总数从31929页减少至15545页（31929-16384=15545）,与预期一致,且order=14的空闲链表为空,验证了最大块分配逻辑,说明系统能处理极限内存分配请求。
 
 #### 6.2.6 测试6：超出最大块分配验证
 
-![测试6结果](media/image6.png)
+![测试6结果](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/Buddy%20System%20%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%9B%BE%E7%89%87%206.png?raw=true)
 
 **结果分析：** 当请求分配16385页（超过系统最大块16384页）时,系统返回分配失败,验证了极限场景下的错误处理逻辑,确保系统在面对无效内存分配请求时能正确拒绝,保证内存管理的稳定性。
 
 #### 6.2.7 测试7：释放后空闲数恢复验证
 
-![测试7结果](media/image7.png)
+![测试7结果](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/Buddy%20System%20%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%9B%BE%E7%89%87%207.png?raw=true)
 
 **结果分析：** 释放测试5中分配的最大块后,总空闲页数恢复为初始的31929页,无内存泄漏,验证了内存管理的完整性,说明系统在内存释放后能正确回收资源,保证内存的可重复利用。
 
 #### 6.2.8 测试8：连续小分配与合并验证
 
-![测试8结果1](media/image8.png)
+![测试8结果1](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/Buddy%20System%20%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%9B%BE%E7%89%87%208.png?raw=true)
 
-![测试8结果2](media/image9.png)
+![测试8结果2](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab2/image/Buddy%20System%20%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/%E5%9B%BE%E7%89%87%209.png?raw=true)
 
 **结果分析：** 由于页分配不连续,采用替代方案,分配并释放4页块后,order=2的空闲链表中存在2个4页块,且总空闲页数恢复为31929页,验证了小内存块分配与合并的有效性,说明系统在真实场景（频繁小内存操作）下也能合理管理内存,避免碎片积累。
 
