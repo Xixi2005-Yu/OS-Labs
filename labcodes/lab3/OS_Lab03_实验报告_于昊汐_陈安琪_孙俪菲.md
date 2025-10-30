@@ -133,11 +133,11 @@ volatile size_t ticks;
 
 最后，执行 make 和 make qemu 命令，编译代码并运行内核，实现效果如图所示。
 
-![1761826805952](C:\Users\京东\AppData\Roaming\Typora\typora-user-images\1761826805952.png)
+![1761834122280](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab3/image/Lab3%20%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/%E5%9B%BE%E7%89%87%201.png?raw=true)
 
-![1761826825444](C:\Users\京东\AppData\Roaming\Typora\typora-user-images\1761826825444.png)
+![1761834705318](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab3/image/Lab3%20%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/%E5%9B%BE%E7%89%87%202.png?raw=true)
 
-![1761826842537](C:\Users\京东\AppData\Roaming\Typora\typora-user-images\1761826842537.png)
+![1761834753953](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab3/image/Lab3%20%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/%E5%9B%BE%E7%89%87%203.png?raw=true)
 
 从输出结果来看，成功实现每到 100 次时钟中断后，调用 print_ticks 子程序，向屏幕上打印一行文字”100 ticks”，在打印完 10 行后调用 sbi.h 中的 shut_down () 函数关机。
 
@@ -723,11 +723,11 @@ if (num >= 10) {
 
 代码编写完成后，我们执行 make 指令，可以看到，文件均编译成功：
 
-![1761829342252](C:\Users\京东\AppData\Roaming\Typora\typora-user-images\1761829342252.png)
+![1761834184017](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab3/image/Lab3%20%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/%E5%9B%BE%E7%89%87%204.png?raw=true)
 
 接着，执行 make qemu 命令，编译代码并运行内核，实现效果如图所示。（这里的前面 OpenSBI 启动信息部分与上面是一样的，就不进行展示了，我们主要看后面的测试相关结果）
 
-![1761829370142](C:\Users\京东\AppData\Roaming\Typora\typora-user-images\1761829370142.png)
+![1761834196376](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab3/image/Lab3%20%E5%AE%9E%E9%AA%8C%E6%8A%A5%E5%91%8A/%E5%9B%BE%E7%89%87%205.png?raw=true)
 
 我们可以看到，在完成 10 次时钟中断（即打印 10 次 “100 ticks”）后，内核自动调用了 test_exceptions () 进行异常测试。首先是非法指令异常的测试（ --- Triggering illegal instruction test --- ），测试函数中试图执行指令 mret，但由于此时 CPU 处于 S 模式，而 mret 只能在 M 模式 执行，因此 检查出非法指令异常，OpenSBI 模拟器报告了 sbi_emulate_csr_read: hartid0: invalid csr_num=0x302，说明尝试访问特权级受限的寄存器失败，触发了非法指令异常。异常被内核的 exception_handler () 捕获，输出 “Exception: Illegal instruction” 及触发地址 0xc0200b58。随后内核将 tf->epc += 4 跳过该非法指令，使系统能继续执行而非死循环。
 
