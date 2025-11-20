@@ -554,15 +554,15 @@ kern_init()
 
 最后,执行`make`和`make qemu`指令,编译代码并运行内核,实现效果如图所示。
 
-![](C:\Users\京东\Desktop\曾经写过的一些东西\操作系统\labcodes\lab4\image\图片 1.png)
+![](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab4/image/%E5%9B%BE%E7%89%87%201.png?raw=true)
 
-![图片 2](C:\Users\京东\Desktop\曾经写过的一些东西\操作系统\labcodes\lab4\image\图片 2.png)
+![图片 2](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab4/image/%E5%9B%BE%E7%89%87%202.png?raw=true)
 
-![图片 3](C:\Users\京东\Desktop\曾经写过的一些东西\操作系统\labcodes\lab4\image\图片 3.png)
+![图片 3](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab4/image/%E5%9B%BE%E7%89%87%203.png?raw=true)
 
 从运行结果可以看出,各部分初始化正常。也能够正常输出当前线程信息和"Hello world！！"字符串。最后,线程也可以正常退出。
 
-![图片 4](C:\Users\京东\Desktop\曾经写过的一些东西\操作系统\labcodes\lab4\image\图片 4.png)
+![图片 4](![图片 4.png](https://github.com/Xixi2005-Yu/OS-Labs/blob/main/labcodes/lab4/image/%E5%9B%BE%E7%89%87%204.png?raw=true)
 
 执行`make grade`命令,查看程序得分为30/30。
 
